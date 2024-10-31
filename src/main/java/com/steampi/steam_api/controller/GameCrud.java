@@ -1,51 +1,73 @@
 package com.steampi.steam_api.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.steampi.steam_api.model.Game;
-import com.steampi.steam_api.model.Genre;
+import com.steampi.steam_api.service.GameService;
+import com.steampi.steam_api.service.GenreService;
 
-@RequestMapping("/game")
+import dto.GameDTO;
+import dto.GenreDTO;
+
+@RequestMapping("/steamapi")
 @Controller
 public class GameCrud {
-
-	@GetMapping(value = "/{id}")
+	
+	@Autowired
+	private GameService gameService;
+	@Autowired
+	private GenreService GenreService;
+	
+	@GetMapping(value = "/game/{id}")
 	@ResponseBody
-    public ResponseEntity<Game> getGame(@RequestBody Game game) {
-        System.out.println(game);
-        
+    public ResponseEntity<GameDTO> getGame(@RequestBody GameDTO game) {
+		this.gameService.getGame(String.valueOf(game.getId()));
         return ResponseEntity.ok(game);
     }
 	
 	@PostMapping(produces = "application/json")
 	@ResponseBody
-    public ResponseEntity<Game> postGame(@RequestBody Game game) {
+    public ResponseEntity<GameDTO> postGame(@RequestBody GameDTO game) {        
+        return ResponseEntity.ok(game);
+    }
+
+	@PutMapping(value = "/game/{id}")
+	@ResponseBody
+	public ResponseEntity<GameDTO> putGame(@RequestBody GameDTO game) {
         System.out.println(game);
         
         return ResponseEntity.ok(game);
     }
 
-	@PutMapping(value = "/{id}")
+	@DeleteMapping(value = "/game/{id}")
 	@ResponseBody
-	public ResponseEntity<Game> putGame(@RequestBody Game game) {
+	public ResponseEntity<GameDTO> deleteGame(@RequestBody GameDTO game) {
         System.out.println(game);
         
         return ResponseEntity.ok(game);
     }
-
-	@DeleteMapping(value = "/{id}")
-	@ResponseBody
-	public ResponseEntity<Game> deleteGame(@RequestBody Game game) {
-        System.out.println(game);
+	
+	@PostMapping(produces = "application/json", value = "/genre")
+    public ResponseEntity<String> postGenre(@RequestBody GenreDTO genre) {        
         
-        return ResponseEntity.ok(game);
+		this.GenreService.postGenre(genre.getName());
+        return ResponseEntity.ok("genero salvo");
+    }
+	
+	@GetMapping(value = "/genre/{id}")
+	@ResponseBody
+    public ResponseEntity<GenreDTO> getGenre( @PathVariable("id") String id) {
+//		this.gameService.getGame(String.valueOf(game.getId()));
+
+        return ResponseEntity.ok(this.GenreService.getGenre(id));
     }
 }
