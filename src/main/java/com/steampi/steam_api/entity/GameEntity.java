@@ -1,8 +1,9 @@
 package com.steampi.steam_api.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.Column;
+import dto.GenreDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -33,11 +34,29 @@ public class GameEntity {
 
 	@ManyToOne // Mapeamento de muitos jogos para um gênero
 	@JoinColumn(name = "generoId", referencedColumnName = "id", nullable = false) // Coluna de referência
-	private GenreEntity genero;
+	private List<GenreEntity> genero;
 
 	public String reqMin;
 
 	public String reqRecommend;
+
+	
+	
+	public GameEntity(Integer codGame, String name, String descricao, List<GenreDTO> genero, String reqMin,
+			String reqRecommend) {
+		super();
+		this.codGame = codGame;
+		this.name = name;
+		this.descricao = descricao;
+		this.reqMin = reqMin;
+		this.reqRecommend = reqRecommend;
+		convertDtoToEntity(genero);
+	}
+
+	private void convertDtoToEntity(List<GenreDTO> generoDto) {
+		
+		generoDto.forEach(gen -> this.getGenero().add(new GenreEntity(gen.getName())));
+	}
 
 	public Integer getId() {
 		return id;
@@ -71,11 +90,15 @@ public class GameEntity {
 		this.descricao = descricao;
 	}
 
-	public GenreEntity getGenero() {
+
+	public List<GenreEntity> getGenero() {
+		if(this.genero == null) {
+			this.genero = new ArrayList<GenreEntity>();
+		}
 		return genero;
 	}
 
-	public void setGenero(GenreEntity genero) {
+	public void setGenero(List<GenreEntity> genero) {
 		this.genero = genero;
 	}
 

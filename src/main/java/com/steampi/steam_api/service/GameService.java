@@ -21,4 +21,8 @@ public class GameService {
 	public GameEntity getGame(GameDTO gameDto) {
 		return repository.findByCodGame(gameDto.getId());
 	}
+	
+	public GameEntity postGame(GameDTO gameDto) {
+		return repository.save(new GameEntity(Integer.valueOf(gameDto.getCodGame()), gameDto.getName(), gameDto.getDesc(), gameDto.getGenre(), gameDto.getReqMin(), gameDto.getReqRecommend()));
+	}
 }

@@ -34,9 +34,10 @@ public class GameCrud {
         return ResponseEntity.ok(game);
     }
 	
-	@PostMapping(produces = "application/json")
+	@PostMapping(produces = "application/json", value = "/game")
 	@ResponseBody
-    public ResponseEntity<GameDTO> postGame(@RequestBody GameDTO game) {        
+    public ResponseEntity<GameDTO> postGame(@RequestBody GameDTO game) {
+		this.gameService.postGame(game);
         return ResponseEntity.ok(game);
     }
 

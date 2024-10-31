@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GameDTO {
     private int id;
+    private int codGame;
     private String name;
     private String desc;
     
@@ -24,8 +25,16 @@ public class GameDTO {
     public void setId(int id) {
         this.id = id;
     }
+    
+    public int getCodGame() {
+		return codGame;
+	}
 
-    public String getName() {
+	public void setCodGame(int codGame) {
+		this.codGame = codGame;
+	}
+
+	public String getName() {
         return name;
     }
 
