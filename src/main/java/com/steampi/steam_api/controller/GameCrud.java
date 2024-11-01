@@ -29,9 +29,9 @@ public class GameCrud {
 	
 	@GetMapping(value = "/game/{id}")
 	@ResponseBody
-    public ResponseEntity<GameDTO> getGame(@RequestBody GameDTO game) {
-		this.gameService.getGame(String.valueOf(game.getId()));
-        return ResponseEntity.ok(game);
+    public ResponseEntity<GameDTO> getGame(@PathVariable("id") Integer id) {
+		GameDTO gamedto = this.gameService.getGame(id);
+        return ResponseEntity.ok(gamedto);
     }
 	
 	@PostMapping(produces = "application/json", value = "/game")
@@ -41,7 +41,7 @@ public class GameCrud {
         return ResponseEntity.ok(game);
     }
 
-	@PutMapping(value = "/game/{id}")
+	@PutMapping(produces = "application/json", value = "/game")
 	@ResponseBody
 	public ResponseEntity<GameDTO> putGame(@RequestBody GameDTO game) {
         System.out.println(game);
@@ -51,10 +51,10 @@ public class GameCrud {
 
 	@DeleteMapping(value = "/game/{id}")
 	@ResponseBody
-	public ResponseEntity<GameDTO> deleteGame(@RequestBody GameDTO game) {
-        System.out.println(game);
+	public ResponseEntity<String> deleteGame(@PathVariable("id") Integer code) {
+        this.gameService.deleteGame(code);
         
-        return ResponseEntity.ok(game);
+        return ResponseEntity.ok("Game deletado");
     }
 	
 	@PostMapping(produces = "application/json", value = "/genre")

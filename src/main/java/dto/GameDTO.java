@@ -16,7 +16,18 @@ public class GameDTO {
     private String reqMin;
     private String reqRecommend;
 
-    // Getters e Setters
+    
+    
+    public GameDTO(int codGame, String name, String desc, String reqMin, String reqRecommend) {
+		super();
+		this.codGame = codGame;
+		this.name = name;
+		this.desc = desc;
+		this.reqMin = reqMin;
+		this.reqRecommend = reqRecommend;
+	}
+
+	// Getters e Setters
 
     public int getId() {
         return id;

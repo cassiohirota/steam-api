@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,7 +33,7 @@ public class GameEntity {
 
 	public String descricao;
 
-	@ManyToOne // Mapeamento de muitos jogos para um gênero
+	@OneToMany // Mapeamento de muitos jogos para um gênero
 	@JoinColumn(name = "generoId", referencedColumnName = "id", nullable = false) // Coluna de referência
 	private List<GenreEntity> genero;
 
@@ -40,7 +41,9 @@ public class GameEntity {
 
 	public String reqRecommend;
 
-	
+	public GameEntity() {
+    }
+
 	
 	public GameEntity(Integer codGame, String name, String descricao, List<GenreDTO> genero, String reqMin,
 			String reqRecommend) {
@@ -54,8 +57,11 @@ public class GameEntity {
 	}
 
 	private void convertDtoToEntity(List<GenreDTO> generoDto) {
-		
-		generoDto.forEach(gen -> this.getGenero().add(new GenreEntity(gen.getName())));
+		if (generoDto != null) {
+	        generoDto.forEach(gen -> this.getGenero().add(new GenreEntity(gen.getName())));
+	    } else {
+	        this.genero = new ArrayList<>();
+	    }
 	}
 
 	public Integer getId() {
