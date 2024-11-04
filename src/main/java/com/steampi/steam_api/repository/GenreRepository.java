@@ -1,7 +1,8 @@
 package com.steampi.steam_api.repository;
 
-import java.util.Optional;
 
+import java.util.Optional;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +13,9 @@ public interface GenreRepository extends JpaRepository<GenreEntity, Integer> {
 
 	Optional<GenreEntity> findById(Integer id);
 
-	GenreEntity findByCode(String code);
+	List<GenreEntity> findAllByCode(Integer code);
+
+	GenreEntity findByCode(Integer code);
 	
 	void deleteById(Integer id);
 	

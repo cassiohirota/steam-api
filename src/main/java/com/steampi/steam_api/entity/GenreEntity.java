@@ -26,6 +26,8 @@ public class GenreEntity {
 	@Column(name = "id") // Mapeamento da coluna
 	private Integer id;
 
+	private int code;
+
 	private String name;
 
 //	@OneToMany(mappedBy = "genero", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -50,7 +52,14 @@ public class GenreEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public int getCode() {
+		return code;
+	}
+	public void setCode(int code) {
+		this.code = code;
+	}
 
+	
 //	public ArrayList<GameEntity> getGames() {
 //		return games;
 //	}

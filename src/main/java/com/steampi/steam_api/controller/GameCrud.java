@@ -66,7 +66,7 @@ public class GameCrud {
 	
 	@GetMapping(value = "/genre/{id}")
 	@ResponseBody
-    public ResponseEntity<GenreDTO> getGenre(@PathVariable("id") String id) {
+    public ResponseEntity<GenreDTO> getGenre(@PathVariable("id") Integer id) {
 
         return ResponseEntity.ok(this.GenreService.getGenre(id));
     }

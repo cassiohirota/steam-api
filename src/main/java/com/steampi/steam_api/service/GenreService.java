@@ -1,5 +1,6 @@
 package com.steampi.steam_api.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,11 @@ public class GenreService {
 		repository.save(new GenreEntity(name));
 	}
 	
-	public GenreDTO getGenre(String id) {
-		 Optional<GenreEntity> genreEntity = repository.findById(Integer.valueOf(id));
+	public GenreDTO getGenre(int code) {
+		 //Optional<GenreEntity> genreEntity = repository.findById(Integer.valueOf(id));
 		
-		return new GenreDTO(String.valueOf(genreEntity.get().getId()), genreEntity.get().getName());
+		GenreEntity genreEntity = repository.findByCode(code);
+		return new GenreDTO(genreEntity.getCode(), genreEntity.getName());
 	}
 	
 	public GenreEntity putGenre(GenreDTO genreDto) {
