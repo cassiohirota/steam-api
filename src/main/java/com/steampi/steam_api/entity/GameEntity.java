@@ -43,7 +43,6 @@ public class GameEntity {
 
 	public GameEntity() {
     }
-
 	
 	public GameEntity(Integer codGame, String name, String descricao, List<GenreDTO> genero, String reqMin,
 			String reqRecommend) {

@@ -1,5 +1,6 @@
 package com.steampi.steam_api.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +23,6 @@ public class GameService {
 		return new GameDTO(gameEnt.getCodGame(), gameEnt.getName(), gameEnt.getDescricao(), gameEnt.getReqMin(),
 				gameEnt.getReqRecommend());
 	}
-	/*
-	 * public GameEntity getGame(GameDTO gameDto) { GameEntity game =
-	 * repository.findByCodGame(gameDto.getId()); return game; }
-	 */
 
 	public GameEntity postGame(GameDTO gameDto) {
 		return repository.save(new GameEntity(Integer.valueOf(gameDto.getCodGame()), gameDto.getName(),
@@ -33,12 +30,25 @@ public class GameService {
 	}
 
 	public GameEntity putGame(GameDTO gameDto) {
-		return repository.save(new GameEntity(Integer.valueOf(gameDto.getCodGame()), gameDto.getName(),
-				gameDto.getDesc(), gameDto.getGenre(), gameDto.getReqMin(), gameDto.getReqRecommend()));
+		GameEntity game = repository.findByCodGame(gameDto.getCodGame());
+		
+		game = dtoToEntity(gameDto, game);
+		return repository.save(game);
 	}
 
 	@Transactional
 	public void deleteGame(Integer code) {
 		repository.deleteByCodGame(code);
 	}
+	
+	public GameEntity dtoToEntity(GameDTO gameDto, GameEntity game) {
+		game.setCodGame(gameDto.getCodGame());
+		game.setName(gameDto.getName());
+		game.setDescricao(gameDto.getDesc());
+		game.setReqMin(gameDto.getReqMin());
+		game.setReqRecommend(gameDto.getReqRecommend());
+		
+		return game;
+	}
+	
 }

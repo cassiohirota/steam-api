@@ -11,6 +11,11 @@ import com.steampi.steam_api.entity.GenreEntity;
 public interface GenreRepository extends JpaRepository<GenreEntity, Integer> {
 
 	Optional<GenreEntity> findById(Integer id);
+
+	GenreEntity findByCode(String code);
+	
+	void deleteById(Integer id);
+	
 //	@Modifying
 //	@Query (
 //	    value = "INSERT INTO steamapi.Genero (name) VALUES (:name)",
