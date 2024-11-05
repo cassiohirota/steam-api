@@ -1,15 +1,34 @@
 package dto;
 
 public class GenreDTO {
+	
     private int id;
     private int code;
     private String name;
 
 
+    public GenreDTO() {
+    	
+    }
+
+    public GenreDTO(int id, int code, String name) {
+		this.id = id;
+		this.code = code;
+		this.name = name;
+	}
+    
     public GenreDTO(int code, String name) {
 		super();
 		this.code = code;
 		this.name = name;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getCode() {

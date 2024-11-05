@@ -1,5 +1,7 @@
 package com.steampi.steam_api.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -64,17 +66,25 @@ public class GameCrud {
         return ResponseEntity.ok("genero salvo");
     }
 	
-	@GetMapping(value = "/genre/{id}")
+	@GetMapping(value = "/genre/type/{id}")
 	@ResponseBody
     public ResponseEntity<GenreDTO> getGenre(@PathVariable("id") Integer id) {
 
         return ResponseEntity.ok(this.GenreService.getGenre(id));
     }
 	
+	@GetMapping(value = "/genre/{code}")
+	@ResponseBody
+    public ResponseEntity<List<GenreDTO>> getAllGenre(@PathVariable("code") Integer code) {
+
+        return ResponseEntity.ok(this.GenreService.getAllGenre(code));
+    }
+	
+	
 	@PutMapping(produces = "application/json", value = "/genre")
 	@ResponseBody
-	public ResponseEntity<GenreDTO> putGenre(@RequestBody GenreDTO genre){
-		GenreService.putGenre(genre);
-		return ResponseEntity.ok(genre);
+	public ResponseEntity<String> putGenre(@RequestBody GenreDTO genreDto){
+		GenreService.putGenre(genreDto);
+		return ResponseEntity.ok("Genero Alterado");
 	}
 }

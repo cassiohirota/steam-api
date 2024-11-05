@@ -37,6 +37,7 @@ public class GenreEntity {
 		this.name = name;
 	}
 	public GenreEntity() {}
+	
 	public Integer getId() {
 		return id;
 	}
